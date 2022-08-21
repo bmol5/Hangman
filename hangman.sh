@@ -17,28 +17,27 @@ tl=$(echo $word | cut -b 3)
 fi
 
 i=6
-echo $i
+
 while [ $i -gt 0 ];
 do
 echo " "
 read -a guess
 list=$(echo "Letters used: ${guess}")
 i=$((i-1))
-echo " "
-echo "$i attemps remaining"
+echo -e "$i attemps remaining\n"
 
 if [[ $guess == $fl ]];
 then
 echo "${list}"
-echo "h__"
+echo "$fl _ _"
 elif [[ $guess == $sl ]];
 then
 echo "${list}"
-echo "_a_"
+echo "_ $sl _"
 elif [[ $guess == $tl ]];
 then
 echo "${list}"
-echo "__t"
+echo "_ _ $tl"
 elif [[ $guess != $fl || $sl || $tl  ]];
 then
 echo "${list}"
@@ -46,30 +45,32 @@ fi
 
 echo " "
 read -a guess2
+list+="$guess2"
 i=$((i-1))
 echo "$i attempts remaining"
 
 if [[ $guess2 == "$fl" && $guess == "$tl" ]] || [[ $guess2 == "$tl" && $guess == "$fl" ]];
 then
 echo "$fl _ $tl"
+echo "${list}"
 elif [[ $guess2 == "$fl" && $guess == "$sl" ]] || [[ $guess2 == "$sl" && $guess == "$fl" ]];
 then
 echo "$fl $sl _"
+echo "${list}"
 elif [[ $guess2 = "$fl" ]] && [[ $guess != "$fl" || "$sl" || "$tl" ]];
 then
 echo "$fl _ _"
-echo "Letters attempted: $guess"
+echo "${list}"
 elif [[ $guess2 == "$sl" ]] && [[ $guess != "$fl" || "$sl" || "$tl" ]];
 then
 echo "_ $sl _"
-echo "Letters attempted: $guess"
+echo "${list}"
 elif [[ $guess2 == "$tl" ]] && [[ $guess != "$fl" || "$sl" || "$tl" ]];
 then
 echo "_ _ $tl"
-echo "Letters attempted: $guess"
+echo "${list}"
 elif [[ $guess2 != $firstletter || $secondletter || $thirdletter  ]];
 then
-list+="$guess2"
 echo "${list}"
 fi
 
