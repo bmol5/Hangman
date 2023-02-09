@@ -4,7 +4,7 @@
 
 echo "Would you like to play hangman?"
 read response
-word=hat
+word=cat
 
 if [ $response=="yes" ];
 then
